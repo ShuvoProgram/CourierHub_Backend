@@ -22,4 +22,4 @@ app.use('/api', apis)
 
 const port = process.env.PORT || '4545'
 
-app.listen(port, () => console.log('Server started at port 4545'))
+app.listen(port, () => console.log('Server started at port 4545'));
