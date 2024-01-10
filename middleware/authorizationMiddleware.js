@@ -2,9 +2,10 @@ require('dotenv').config()
 const jwt = require('jsonwebtoken')
 
 function authorizeToken(req, res, next) {
-  const authHeader = req.headers.authorization
-  const token = authHeader && authHeader.split(' ')[1]
-
+  const authHeader = req.headers.authorization;
+  // console.log(authHeader.split(' ') [1]);
+  const token = authHeader && authHeader.split(' ')[1];
+  
   if (token == null) {
     return res.status(401).json({
       status: 'failure',

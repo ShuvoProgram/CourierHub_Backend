@@ -17,7 +17,7 @@ app.use(cors())
 app.options('*', cors())
 app.use(express.json())
 
-// const apis = require('./routes/api')
+const apis = require('./routes/api')
 app.use('/api', apis)
 
 const port = process.env.PORT || '4545'

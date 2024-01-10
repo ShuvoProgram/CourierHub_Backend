@@ -12,14 +12,15 @@ const { sendEmail } = require('../utils/send_email_helper')
 async function addCourierEntry(req, res) {
   try {
     const departmentId = req.department._id // this is the id of loggedin department who is currently making the entry of this courier to their department (can be initiator as well as middle ones)
+    
     const department = await Department.findById(departmentId).select(
       '-password'
     )
-
-    const courierDetails = req.body.courierDetails
-    const existingCourier = await Courier.findById(courierDetails._id)
-      .populate('senderDetails')
-      .populate('receiverDetails')
+    const courierDetails = req.body.courierDetails;
+    const existingCourier = await Courier.findById(courierDetails?._id)
+    .populate('senderDetails')
+    .populate('receiverDetails')
+    console.log(existingCourier);
     if (existingCourier) {
       // if courier exist already that means this courier department is the middle one in courier transit journey
       // change status and all etc. functionalities
@@ -43,11 +44,11 @@ async function addCourierEntry(req, res) {
         updatedAt: Date.now(),
       })
 
-      await sendEmail(
-        existingCourier._id,
-        existingCourier.receiverDetails.email,
-        url.parse(req.headers.referer).host
-      )
+      // await sendEmail(
+      //   existingCourier._id,
+      //   existingCourier.receiverDetails.email,
+      //   url.parse(req.headers.referer).host
+      // )
 
       return res.status(204).json({
         status: 'success',
@@ -126,11 +127,11 @@ async function addCourierEntry(req, res) {
         tracker: initialTracker,
       }).save()
 
-      await sendEmail(
-        courier._id,
-        receiverDetails.email,
-        url.parse(req.headers.referer).host
-      )
+      // await sendEmail(
+      //   courier._id,
+      //   receiverDetails.email,
+      //   url.parse(req.headers.referer).host
+      // )
 
       return res.status(201).json({
         status: 'success',

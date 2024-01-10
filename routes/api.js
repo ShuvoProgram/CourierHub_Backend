@@ -9,7 +9,7 @@ const {
 } = require('../middleware/authorizationMiddleware')
 
 route.get('/', (req, res) => {
-  res.send('/api working')
+  res.send('Welcome to CourierHub! 🚀')
 })
 
 //------------------ DEPARTMENT APIS -------------------------------//
@@ -27,13 +27,12 @@ route.patch(
 )
 
 //------------------- COURIER APIS ------------------------------//
-route.post('/couriers/addCourier', authorize, CourierController.addCourierEntry)
+route.post('/couriers/addCourier', authorize,  CourierController.addCourierEntry)
 route.get('/couriers/getCouriers', authorize, CourierController.getAllCouriers)
 route.get('/couriers/getCouriers/:id', CourierController.getCourierById)
 route.post('/couriers/track', CourierController.getTrackingDetails)
 route.patch(
   '/couriers/updateCourier',
-  authorize,
   CourierController.updateCourierEntry
 )
 
